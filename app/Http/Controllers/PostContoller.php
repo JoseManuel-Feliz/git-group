@@ -12,8 +12,8 @@ class PostContoller extends Controller
      */
     public function index()
     {
-        /* $post = Post::all(); */
-        return view('post.index', compact(''));
+        $post = Post::all();
+        return view('post.index', compact('post'));
     }
 
     /**
@@ -21,8 +21,8 @@ class PostContoller extends Controller
      */
     public function create()
     {
-        /* $post = Post::all(); */
-        return view('post.create', compact(''));
+        $post = Post::all();
+        return view('post.create', compact('post'));
     }
 
     /**
@@ -31,7 +31,7 @@ class PostContoller extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([]);
-        /* $post = Post::create($data); */
+        $post = Post::create($data);
         return redirect()->route('post.show', $post->id);
     }
 
@@ -40,7 +40,7 @@ class PostContoller extends Controller
      */
     public function show(string $id)
     {
-        $project = Project::findOrFail($id);
+        $Post = Post::findOrFail($id);
         return view('post.show', compact('post'));
     }
 
@@ -49,7 +49,7 @@ class PostContoller extends Controller
      */
     public function edit(string $id)
     {
-        /* $post = Post::all(); */
+        $post = Post::all();
         return view('post.edit');
     }
 
@@ -59,7 +59,7 @@ class PostContoller extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->validate([]);
-        /* $post = Post::update($data); */
+        $post = Post->update($data);
         return redirect()->route('post.show', $post->id);
     }
 
