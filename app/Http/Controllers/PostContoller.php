@@ -13,7 +13,7 @@ class PostContoller extends Controller
     public function index()
     {
         $post = Post::all();
-        return view('post.index', compact('post'));
+        return view('admin.post.index', compact('post'));
     }
 
     /**
@@ -22,7 +22,7 @@ class PostContoller extends Controller
     public function create()
     {
         $post = Post::all();
-        return view('post.create', compact('post'));
+        return view('admin.post.create', compact('post'));
     }
 
     /**
@@ -30,9 +30,9 @@ class PostContoller extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([]);
+        $data = $request->all();
         $post = Post::create($data);
-        return redirect()->route('post.show', $post->id);
+        return redirect()->route('admin.post.show', $post->id);
     }
 
     /**
@@ -41,7 +41,7 @@ class PostContoller extends Controller
     public function show(string $id)
     {
         $Post = Post::findOrFail($id);
-        return view('post.show', compact('post'));
+        return view('admin.post.show', compact('post'));
     }
 
     /**
@@ -50,7 +50,7 @@ class PostContoller extends Controller
     public function edit(string $id)
     {
         $post = Post::all();
-        return view('post.edit');
+        return view('admin.post.edit');
     }
 
     /**
@@ -58,9 +58,12 @@ class PostContoller extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = $request->validate([]);
-        $post = Post->update($data);
-        return redirect()->route('post.show', $post->id);
+        $data = $request->all();
+
+        $post = Post::findOrFail($id);
+        $post->update($data);
+
+        return redirect()->route('admin.post.show', $post->id);
     }
 
     /**
@@ -70,6 +73,6 @@ class PostContoller extends Controller
     {
         $post = Post::findOrFail($id);
         $post->delete();
-        return redirect()->route('post.index', $post->id);
+        return redirect()->route('admin.post.index', $post->id);
     }
 }
